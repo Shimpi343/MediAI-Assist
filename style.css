@@ -1,0 +1,88 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f0f0ff;
+    padding: 20px;
+  }
+  h1, h2 {
+    color: #4B0082;
+  }
+  form, table {
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+  }
+  button, a {
+    padding: 10px 15px;
+    background: #6a5acd;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  a:hover {
+    background: #483d8b;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #dcd6f7, #a6b1e1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.result-container {
+    width: 90%;
+    max-width: 600px;
+    margin: auto;
+}
+
+.card {
+    background: white;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    animation: slideUp 1s ease;
+    transition: all 0.3s;
+}
+
+.error-card {
+    border-left: 6px solid red;
+}
+
+h2 {
+    color: #4b0082;
+    margin-bottom: 20px;
+}
+
+p {
+    margin: 8px 0;
+    font-size: 1rem;
+}
+
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 18px;
+    background-color: #6a5acd;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background-color: #5b50d6;
+}
+
+/* Animation */
+@keyframes slideUp {
+    from {
+        transform: translateY(60px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}

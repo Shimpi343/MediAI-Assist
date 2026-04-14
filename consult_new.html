@@ -1,0 +1,46 @@
+<script>
+    const symptomsList = {
+        'all': [
+            'Fever', 'Cough', 'Shortness of Breath', 'Sore Throat',
+            'Headache', 'Fatigue', 'Dizziness', 'Nausea', 'Vomiting',
+            'Diarrhea', 'Stomach Pain', 'Body Ache', 'Chest Pain',
+            'Back Pain', 'Joint Pain', 'Skin Rash', 'Swelling', 'Itching',
+            'Loss of Taste', 'Loss of Smell', 'Runny Nose', 'Sneezing'
+        ]
+    };
+
+    let selectedSymptoms = [];
+
+    function displaySymptoms() {
+        const container = document.getElementById('symptomsContainer');
+
+        container.innerHTML = symptomsList['all'].map(symptom => `
+            <div class="symptom-card">
+                <input type="checkbox" value="${symptom}" onchange="updateSelectedSymptoms()">
+                <label>${symptom}</label>
+            </div>
+        `).join('');
+    }
+
+    function updateSelectedSymptoms() {
+        selectedSymptoms = Array.from(
+            document.querySelectorAll('input[type="checkbox"]:checked')
+        ).map(cb => cb.value);
+
+        document.getElementById('symptoms').value = selectedSymptoms.join(', ');
+    }
+
+    // ✅ FIXED SUBMIT (NO preventDefault)
+    document.getElementById('diagnosisForm').addEventListener('submit', function() {
+
+        if (selectedSymptoms.length === 0) {
+            alert('Please select at least one symptom');
+            return false; // stops submit ONLY if empty
+        }
+
+        document.getElementById('submitBtn').style.display = 'none';
+        document.getElementById('loadingIndicator').style.display = 'block';
+    });
+
+    displaySymptoms();
+</script>

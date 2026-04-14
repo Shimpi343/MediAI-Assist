@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Doctor Chatbot</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, #8e44ad, #2ecc71);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      animation: gradientShift 10s infinite alternate;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    .chat-container {
+      background: rgba(255, 255, 255, 0.95);
+      width: 400px;
+      max-width: 90%;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      animation: fadeIn 1.2s ease-in;
+      transition: all 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .chat-header {
+      background: #6a1b9a;
+      color: white;
+      padding: 20px;
+      font-size: 1.3em;
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .chat-messages {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: #f3f0fb;
+    }
+
+    .chat-messages p {
+      margin: 0;
+      padding: 12px 15px;
+      border-radius: 15px;
+      max-width: 75%;
+      word-wrap: break-word;
+      transition: all 0.3s ease;
+    }
+
+    .user-msg {
+      background: #d1c4e9;
+      align-self: flex-end;
+      border-bottom-right-radius: 0;
+    }
+
+    .bot-msg {
+      background: #e1f5fe;
+      align-self: flex-start;
+      border-bottom-left-radius: 0;
+    }
+
+    .chat-input {
+      display: flex;
+      border-top: 1px solid #ddd;
+      background: #fff;
+      padding: 10px;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 12px 15px;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      font-size: 1em;
+      transition: 0.3s ease;
+    }
+
+    .chat-input input:focus {
+      outline: none;
+      border-color: #8e44ad;
+      box-shadow: 0 0 5px #8e44ad77;
+    }
+
+    .chat-input button {
+      margin-left: 10px;
+      background: #8e44ad;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      border-radius: 10px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+
+    .chat-input button:hover {
+      background: #5e2b91;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+  </style>
+</head>
+<body>
+
+<div class="chat-container">
+  <div class="chat-header">🩺 Doctor Bot</div>
+  <div class="chat-messages" id="chatMessages">
+    <p class="bot-msg">👋 Hello! Tell me your symptoms, and I’ll suggest a diagnosis.</p>
+  </div>
+  <div class="chat-input">
+    <input type="text" id="userInput" placeholder="Type your symptoms..." />
+    <button onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+  function sendMessage() {
+    const input = document.getElementById('userInput');
+    const message = input.value.trim();
+    if (message === '') return;
+
+    appendMessage('user-msg', message);
+    input.value = '';
+
+    setTimeout(() => {
+      const response = getDiagnosis(message.toLowerCase());
+      appendMessage('bot-msg', response);
+    }, 500);
+  }
+
+  function appendMessage(className, text) {
+    const msgContainer = document.getElementById('chatMessages');
+    const msg = document.createElement('p');
+    msg.className = className;
+    msg.textContent = text;
+    msgContainer.appendChild(msg);
+    msgContainer.scrollTop = msgContainer.scrollHeight;
+  }
+
+  function getDiagnosis(symptom) {
+    if (symptom.includes('fever') && symptom.includes('cough')) {
+      return "🦠 You might have Flu or a Viral Infection. Stay hydrated and consider visiting a doctor.";
+    } else if (symptom.includes('chest pain')) {
+      return "⚠️ Chest pain could indicate a heart issue. Please consult a cardiologist immediately.";
+    } else if (symptom.includes('headache')) {
+      return "🧠 That sounds like a migraine or stress. Try resting and avoid screens.";
+    } else if (symptom.includes('nausea') || symptom.includes('vomiting')) {
+      return "🤢 You may have a stomach infection. Stay on fluids and avoid oily food.";
+    } else if (symptom.includes('diarrhea')) {
+      return "💧 Possible digestive infection. Oral rehydration is key.";
+    } else if (symptom.includes('fatigue') || symptom.includes('dizziness')) {
+      return "😴 Might be due to stress or low nutrition. Get some rest.";
+    } else if (symptom.includes('back pain') || symptom.includes('joint pain')) {
+      return "🦴 Could be posture-related or arthritis. Try warm compress and consult a doctor.";
+    } else {
+      return "📋 Thanks for sharing. A general check-up would help diagnose better.";
+    }
+  }
+</script>
+
+</body>
+</html>
